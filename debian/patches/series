@@ -10,3 +10,5 @@ bw-simulation/menu
 fix-ca/menu
 wavelet-denoise/ldflags
 wavelet-denoise/install_-d
+wavelet-denoise/build-with-gcc-10.patch
+lqr/build-with-gcc-10.patch

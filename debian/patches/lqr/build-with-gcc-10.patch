@@ -1,0 +1,39 @@
+diff --git a/lqr/gimp-lqr-plugin/src/interface_I.c b/lqr/gimp-lqr-plugin/src/interface_I.c
+index 2719167..dbe2717 100644
+--- a/lqr/gimp-lqr-plugin/src/interface_I.c
++++ b/lqr/gimp-lqr-plugin/src/interface_I.c
+@@ -73,10 +73,10 @@ static void callback_alarm_triggered (GtkWidget * size_entry, gpointer data);
+ 
+ gint dialog_I_response = GTK_RESPONSE_OK;
+ 
+-PlugInUIVals *ui_state;
+-PlugInVals *state;
+-PlugInDialogVals *dialog_state;
+-gboolean features_are_sensitive;
++extern PlugInUIVals *ui_state;
++extern PlugInVals *state;
++extern PlugInDialogVals *dialog_state;
++extern gboolean features_are_sensitive;
+ InterfaceIData interface_I_data;
+ //volatile sig_atomic_t interface_locked = 0;
+ 
+diff --git a/lqr/gimp-lqr-plugin/src/interface_aux.c b/lqr/gimp-lqr-plugin/src/interface_aux.c
+index 6461757..ceed0d9 100644
+--- a/lqr/gimp-lqr-plugin/src/interface_aux.c
++++ b/lqr/gimp-lqr-plugin/src/interface_aux.c
+@@ -49,11 +49,11 @@ static void callback_dialog_aux_response (GtkWidget * dialog, gint response_id,
+ 
+ gint dialog_aux_response = GTK_RESPONSE_OK;
+ 
+-PlugInUIVals *ui_state;
+-PlugInVals *state;
+-PlugInDialogVals *dialog_state;
++extern PlugInUIVals *ui_state;
++extern PlugInVals *state;
++extern PlugInDialogVals *dialog_state;
+ 
+-GtkWidget *dlg;
++extern GtkWidget *dlg;
+ 
+ /***  Public functions  ***/
+ 

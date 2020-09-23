@@ -1,0 +1,137 @@
+Index: gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/interface.c
+===================================================================
+--- gimp-plugin-registry-9.20180625+nmu1.orig/wavelet-denoise/wavelet-denoise-0.3.1/src/interface.c
++++ gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/interface.c
+@@ -16,8 +16,36 @@
+ #include "plugin.h"
+ #include "interface.h"
+ 
++/* Global variables declared in interface.h */
++/* colour mode frame */
++GtkWidget *fr_mode, *mode_radio[3], *mode_vbox;
++GSList *mode_list;
++
++/* preview select frame */
++GtkWidget *fr_preview, *preview_radio[3], *preview_vbox, *preview_check;
++GSList *preview_list;
++
++/* channel select frame */
++GtkWidget *fr_channel, *channel_radio[4], *channel_vbox;
++GSList *channel_list;
++
++/* threshold frame */
++GtkWidget *fr_threshold, *thr_label[2], *thr_spin[2];
++GtkWidget *thr_hbox[2], *thr_vbox, *thr_scale[2];
++GtkObject *thr_adj[2];
++
++/* reset buttons */
++GtkWidget *reset_button[2], *reset_hbox, *reset_align, *reset_button_icon[2];
++
++/* dialog */
++GtkWidget *dialog, *dialog_hbox, *dialog_vbox, *frame_hbox, *dialog_aspect;
++GtkWidget *preview, *preview_reset, *preview_hbox, *preview_reset_icon;
++
+ GtkWidget **radios_labels[] = { channel_radio, thr_label };
+ 
++char **names;
++
++
+ gboolean
+ user_interface (GimpDrawable * drawable)
+ {
+Index: gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/interface.h
+===================================================================
+--- gimp-plugin-registry-9.20180625+nmu1.orig/wavelet-denoise/wavelet-denoise-0.3.1/src/interface.h
++++ gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/interface.h
+@@ -14,29 +14,29 @@
+  */
+ 
+ /* colour mode frame */
+-GtkWidget *fr_mode, *mode_radio[3], *mode_vbox;
+-GSList *mode_list;
++extern GtkWidget *fr_mode, *mode_radio[3], *mode_vbox;
++extern GSList *mode_list;
+ 
+ /* preview select frame */
+-GtkWidget *fr_preview, *preview_radio[3], *preview_vbox, *preview_check;
+-GSList *preview_list;
++extern GtkWidget *fr_preview, *preview_radio[3], *preview_vbox, *preview_check;
++extern GSList *preview_list;
+ 
+ /* channel select frame */
+-GtkWidget *fr_channel, *channel_radio[4], *channel_vbox;
+-GSList *channel_list;
++extern GtkWidget *fr_channel, *channel_radio[4], *channel_vbox;
++extern GSList *channel_list;
+ 
+ /* threshold frame */
+-GtkWidget *fr_threshold, *thr_label[2], *thr_spin[2];
+-GtkWidget *thr_hbox[2], *thr_vbox, *thr_scale[2];
+-GtkObject *thr_adj[2];
++extern GtkWidget *fr_threshold, *thr_label[2], *thr_spin[2];
++extern GtkWidget *thr_hbox[2], *thr_vbox, *thr_scale[2];
++extern GtkObject *thr_adj[2];
+ 
+ /* reset buttons */
+-GtkWidget *reset_button[2], *reset_hbox, *reset_align, *reset_button_icon[2];
++extern GtkWidget *reset_button[2], *reset_hbox, *reset_align, *reset_button_icon[2];
+ 
+ /* dialog */
+-GtkWidget *dialog, *dialog_hbox, *dialog_vbox, *frame_hbox, *dialog_aspect;
+-GtkWidget *preview, *preview_reset, *preview_hbox, *preview_reset_icon;
++extern GtkWidget *dialog, *dialog_hbox, *dialog_vbox, *frame_hbox, *dialog_aspect;
++extern GtkWidget *preview, *preview_reset, *preview_hbox, *preview_reset_icon;
+ 
+ extern GtkWidget **radios_labels[];
+ 
+-char **names;
++extern char **names;
+Index: gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/plugin.c
+===================================================================
+--- gimp-plugin-registry-9.20180625+nmu1.orig/wavelet-denoise/wavelet-denoise-0.3.1/src/plugin.c
++++ gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/plugin.c
+@@ -16,6 +16,12 @@
+ #include "plugin.h"
+ 
+ GimpPlugInInfo PLUG_IN_INFO = { NULL, NULL, query, run };
++/* Global variables declared in plugin.h */
++float *fimg[4];
++float *buffer[3];
++gint channels;
++
++GTimer *timer;
+ 
+ wavelet_settings settings = {
+   {0, 0},			/* gray_thresholds */
+Index: gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/plugin.h
+===================================================================
+--- gimp-plugin-registry-9.20180625+nmu1.orig/wavelet-denoise/wavelet-denoise-0.3.1/src/plugin.h
++++ gimp-plugin-registry-9.20180625+nmu1/wavelet-denoise/wavelet-denoise-0.3.1/src/plugin.h
+@@ -93,10 +93,10 @@ extern char *names_rgb[];
+ extern char *names_gray[];
+ extern char *names_lab[];
+ 
+-float *fimg[4];
+-float *buffer[3];
+-gint channels;
++extern float *fimg[4];
++extern float *buffer[3];
++extern gint channels;
+ 
+-GTimer *timer;
++extern GTimer *timer;
+ 
+ #endif /* __PLUGIN_H__ */
+Index: gimp-plugin-registry-9.20180625+nmu1/lqr/gimp-lqr-plugin/src/interface_I.c
+===================================================================
+--- gimp-plugin-registry-9.20180625+nmu1.orig/lqr/gimp-lqr-plugin/src/interface_I.c
++++ gimp-plugin-registry-9.20180625+nmu1/lqr/gimp-lqr-plugin/src/interface_I.c
+@@ -80,7 +80,7 @@ gboolean features_are_sensitive;
+ InterfaceIData interface_I_data;
+ //volatile sig_atomic_t interface_locked = 0;
+ 
+-GtkWidget *dlg;
++extern GtkWidget *dlg;
+ /* GtkTooltips *dlg_tips; */
+ GtkWidget *coordinates;
+ 
