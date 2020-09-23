@@ -1,0 +1,37 @@
+Index: gimp-plugin-registry/resynthesizer/resynthesizer-2.0.3/PluginScripts/plugin-uncrop.py
+===================================================================
+--- gimp-plugin-registry.orig/resynthesizer/resynthesizer-2.0.3/PluginScripts/plugin-uncrop.py
++++ gimp-plugin-registry/resynthesizer/resynthesizer-2.0.3/PluginScripts/plugin-uncrop.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ '''
+ Gimp plugin "Uncrop"
+@@ -45,7 +45,7 @@ OUT larger layer and image.  All other l
+ 
+ from gimpfu import *
+ 
+-gettext.install("resynthesizer", gimp.locale_directory, unicode=True)
++gettext.install("resynthesizer", gimp.locale_directory, str=True)
+     
+ def resizeImageCentered(image, percentEnlarge):
+     # resize and center image by percent (converted to pixel units)
+@@ -91,7 +91,7 @@ def uncrop(orgImage, drawable, percentEn
+     # copy original into temp for later use
+     tempImage = pdb.gimp_image_duplicate(orgImage)
+     if not tempImage:
+-        raise RuntimeError, "Failed duplicate image"
++        raise RuntimeError("Failed duplicate image")
+     
+     '''
+     Prepare target: enlarge canvas and select the new, blank outer ring
+@@ -116,7 +116,7 @@ def uncrop(orgImage, drawable, percentEn
+     # Could be alpha channel transparency
+     workLayer = pdb.gimp_image_get_active_layer(tempImage)
+     if not workLayer:
+-        raise RuntimeError, "Failed get active layer"
++        raise RuntimeError("Failed get active layer")
+     # Select outer band:  select all, shrink
+     pdb.gimp_selection_all(tempImage)
+     shrinkSelectionByPercent(tempImage, percentEnlargeParam)

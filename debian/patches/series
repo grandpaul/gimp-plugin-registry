@@ -12,3 +12,4 @@ wavelet-denoise/ldflags
 wavelet-denoise/install_-d
 wavelet-denoise/build-with-gcc-10.patch
 lqr/build-with-gcc-10.patch
+resynthesizer/port_to_python3.patch
