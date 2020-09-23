@@ -1,0 +1,4 @@
+Tests: test-gimp-mask-1
+Depends: @, imagemagick, plasma-workspace-wallpapers, xautomation
+Restrictions: allow-stderr
+

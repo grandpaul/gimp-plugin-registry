@@ -1,0 +1,57 @@
+#/bin/sh
+
+TEMP=${AUTOPKGTEST_TMP:-${TMPDIR:-$(mktemp -d)}}
+TDIR=$(mktemp -d $TEMP/test-gimp-mask-1-XXXXXX)
+FUZZY=800000
+
+convert /usr/share/wallpapers/EveningGlow/contents/images/2560x1440.jpg -resize '640x480!' "$TDIR"/origin.jpg
+
+sleep 1
+
+echo "Encode image..."
+gimp-console -i -b "(let* ((i1 (car (gimp-file-load 1 \"$TDIR/origin.jpg\" \"$TDIR/origin.jpg\")))) (plug-in-gimpmask 1 i1 (car (gimp-image-get-active-drawable i1)) 1 \"\" 0) (gimp-file-save 1 i1 (car (gimp-image-get-active-drawable i1)) \"$TDIR/encode.jpg\" \"$TDIR/encode.jpg\") (gimp-quit 1))"
+
+sleep 2
+
+echo "Decode image..."
+gimp-console -i -b "(let* ((i1 (car (gimp-file-load 1 \"$TDIR/encode.jpg\" \"$TDIR/encode.jpg\")))) (plug-in-gimpmask 1 i1 (car (gimp-image-get-active-drawable i1)) 1 \"\" 0) (gimp-file-save 1 i1 (car (gimp-image-get-active-drawable i1)) \"$TDIR/decode.jpg\" \"$TDIR/decode.jpg\") (gimp-quit 1))"
+
+sleep 2
+
+convert "$TDIR"/origin.jpg "$TDIR"/origin.png
+convert "$TDIR"/decode.jpg "$TDIR"/decode.png
+convert "$TDIR"/encode.jpg "$TDIR"/encode.png
+
+visgrep -t "$FUZZY" "$TDIR"/encode.png "$TDIR"/origin.png > "$TDIR"/report1.txt
+r1=$?
+if [ $r1 -ne 1 ]; then
+   echo "encode.png: visgrep error or some match is found -- FAIL"
+   exit 1
+else
+   echo "encode.png: visgrep no error is found -- PASS"
+fi
+
+r2=`wc -l < "$TDIR"/report1.txt`
+if [ x"$r2" != "x0" ]; then
+   echo "encode.png: visgrep did found detection. -- FAIL"
+   exit 1
+else
+   echo "encode.png: did not found detection image -- PASS"
+fi
+
+visgrep -t "$FUZZY" "$TDIR"/decode.png "$TDIR"/origin.png > "$TDIR"/report2.txt
+r3=$?
+if [ $r3 -eq 2 ]; then
+   echo "decode.png: visgrep error -- FAIL"
+   exit 1
+else
+   echo "decode.png: visgrep no error is found -- PASS"
+fi
+
+r4=`wc -l < "$TDIR"/report2.txt`
+if [ x"$r4" != "x1" ]; then
+   echo "decode.png: visgrep did found detection or found more then 1. -- FAIL"
+   exit 1
+else
+   echo "decode.png: found detection image -- PASS"
+fi
