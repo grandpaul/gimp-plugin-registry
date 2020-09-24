@@ -14,7 +14,7 @@ PLUGINSCRIPTDIR := "/usr/share/gimp/2.0/scripts"
 export PLUGINSCRIPTDIR
 
 %:
-	dh $@ --with quilt,python2,autotools_dev --parallel
+	dh $@ --with quilt,python3,autotools_dev --parallel
 
 # Here follows a small shell snipped to call dh_auto_* for all plugins
 # Currently
@@ -37,7 +37,7 @@ PACKAGING_HELPER = /usr/bin/python3 $(CURDIR)/debian/packaging-helper.py
 
 
 clean: $(PLUGINS:%=clean-%) debian/copyright debian/control
-	dh $@ --with quilt,python2,autotools_dev --parallel
+	dh $@ --with quilt,python3,autotools_dev --parallel
 	rm -f debian/gimp-plugin-registry.install
 
 clean-%:
@@ -89,9 +89,9 @@ override_dh_auto_install: $(PLUGINS:%=dh_auto_install-%)
 override_dh_auto_test: 
 	# nothign to do right now.
 
-override_dh_python2:
-	dh_python2
-	dh_python2 usr/lib/gimp/2.0/python
+override_dh_python3:
+	dh_python3
+	dh_python3 usr/lib/gimp/2.0/python
 
 CONTROL_FILES := $(shell for p in $(PLUGINS); do echo $$p/control; done)
 COPYRIGHT_FILES := $(shell for p in $(PLUGINS); do echo $$p/copyright; done)

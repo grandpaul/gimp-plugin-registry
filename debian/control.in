@@ -4,9 +4,9 @@ Priority: optional
 Maintainer: Bernd Zeimetz <bzed@debian.org>
 Uploaders: #AUTO_UPDATE_Uploaders#
 Build-Depends: autotools-dev, quilt, libgimp2.0-dev, intltool,
- python, automake, autoconf, autotools-dev, dh-autoreconf,
+ automake, autoconf, autotools-dev, dh-autoreconf,
  #AUTO_UPDATE_Build-Depends#, debhelper (>= 8.0.0), libglib2.0-dev,
- python3, python3-debian
+ python3, python3-debian, dh-python
 Standards-Version: 3.9.5
 Vcs-Git: https://github.com/bzed/gimp-plugin-registry.git
 Vcs-Browser: https://github.com/bzed/gimp-plugin-registry
@@ -14,8 +14,8 @@ Vcs-Browser: https://github.com/bzed/gimp-plugin-registry
 Package: gimp-plugin-registry
 Architecture: any
 Depends: gimp (>= 2.6),
- ${shlibs:Depends}, ${misc:Depends},
- python, libtiff-tools, xdg-utils,
+ ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends},
+ python3, libtiff-tools, xdg-utils,
 Suggests: icc-profiles, #AUTO_UPDATE_Suggests#
 Breaks: gimp-refocus (<< 0.9.0-2), gimp-save-for-web, gimp-resynthesizer (<< 0.16-2~)
 Replaces: gimp-refocus (<< 0.9.0-2), gimp-save-for-web, gimp-resynthesizer
