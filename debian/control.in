@@ -1,7 +1,7 @@
 Source: gimp-plugin-registry
 Section: graphics
 Priority: optional
-Maintainer: Bernd Zeimetz <bzed@debian.org>
+Maintainer: Ying-Chun Liu (PaulLiu) <paulliu@debian.org>
 Uploaders: #AUTO_UPDATE_Uploaders#
 Build-Depends: autotools-dev, quilt, libgimp2.0-dev, intltool,
  automake, autoconf, autotools-dev, dh-autoreconf,
