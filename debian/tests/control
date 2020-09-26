@@ -2,3 +2,7 @@ Tests: test-gimp-mask-1
 Depends: @, imagemagick, plasma-workspace-wallpapers, xautomation
 Restrictions: allow-stderr
 
+Tests: test-lqr-1
+Depends: @, imagemagick, plasma-workspace-wallpapers, jpeginfo
+Restrictions: allow-stderr
+

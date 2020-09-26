@@ -1,0 +1,27 @@
+#/bin/sh
+
+TEMP=${AUTOPKGTEST_TMP:-${TMPDIR:-$(mktemp -d)}}
+TDIR=$(mktemp -d $TEMP/test-lqr-1-XXXXXX)
+
+convert /usr/share/wallpapers/EveningGlow/contents/images/2560x1440.jpg -resize '640x480!' "$TDIR"/origin.jpg
+
+sleep 1
+
+echo "Scale image..."
+gimp-console -i -b "(let* ((i1 (car (gimp-file-load 1 \"$TDIR/origin.jpg\" \"$TDIR/origin.jpg\")))) (plug-in-lqr 1 i1 (car (gimp-image-get-active-drawable i1)) 1024 1024 0 1000 0 1000 0 0 1 150 1 1 1 0 2 0 0 0 0 1 \"\" \"\" \"\" \"\") (gimp-file-save 1 i1 (car (gimp-image-get-active-drawable i1)) \"$TDIR/scale1.jpg\" \"$TDIR/scale1.jpg\") (gimp-quit 1))"
+
+sleep 2
+
+if [ ! -e "$TDIR"/scale1.jpg ]; then
+   echo "No scale1.jpg"
+   exit 404
+fi
+
+jpeginfo -i "$TDIR"/scale1.jpg > "$TDIR"/report1.txt
+
+grep "1024 x 1024" "$TDIR"/report1.txt
+r1=$?
+if [ $r1 -ne 0 ]; then
+   echo "scale1.jpg is not 1024 x 1024"
+   exit 1
+fi
