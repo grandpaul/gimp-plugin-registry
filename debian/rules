@@ -6,7 +6,10 @@ export DH_VERBOSE=1
 
 GIMPVER := $(shell dpkg -s libgimp2.0-dev | grep Version | awk '{print $$2}')
 export GIMPVER
-PLUGINS := $(shell find $(CURDIR) -mindepth 1 -maxdepth 1 -name .git -prune -o -name .pc -prune -o -name debian -prune -o -name old_plugins -prune -o -type d -printf '%f\n' | sort)
+ALL_PLUGINS := $(shell find $(CURDIR) -mindepth 1 -maxdepth 1 -name .git -prune -o -name .pc -prune -o -name debian -prune -o -name old_plugins -prune -o -type d -printf '%f\n' | sort)
+export ALL_PLUGINS
+DISABLE_PLUGINS := btn4ws cmyk-tiff-2-pdf contact-sheet ez-perspective layer-effects openraster resynthesizer null
+PLUGINS := $(shell for i in $(ALL_PLUGINS); do A=1; for j in $(DISABLE_PLUGINS); do if [ x$$i = x$$j ]; then A=0; fi; done; if [ $$A -ne 0 ]; then echo $$i; fi; done)
 export PLUGINS
 PLUGINBINDIR := "/usr/lib/gimp/2.0/plug-ins"
 export PLUGINBINDIR
@@ -36,7 +39,7 @@ DH_AUTO_CALL = 	if [ "$$auto_command" = "dh_auto_configure" ]; then \
 PACKAGING_HELPER = /usr/bin/python3 $(CURDIR)/debian/packaging-helper.py
 
 
-clean: $(PLUGINS:%=clean-%) debian/copyright debian/control
+clean: $(ALL_PLUGINS:%=clean-%) debian/copyright debian/control
 	dh $@ --with quilt,python3,autotools_dev --parallel
 	rm -f debian/gimp-plugin-registry.install
 
