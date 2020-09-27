@@ -1,21 +1,21 @@
 Source: gimp-plugin-registry
 Section: graphics
 Priority: optional
-Maintainer: Bernd Zeimetz <bzed@debian.org>
+Maintainer: Ying-Chun Liu (PaulLiu) <paulliu@debian.org>
 Uploaders: Bernd Zeimetz <bzed@debian.org>
 Build-Depends: autotools-dev, quilt, libgimp2.0-dev, intltool,
- python, automake, autoconf, autotools-dev, dh-autoreconf,
- libxml-parser-perl, liblqr-1-0-dev, automake (>= 1.6), autoconf (>= 2.54), liblcms2-dev, libtiff-dev, debhelper (>= 8.0.0), libglib2.0-dev,
- python3, python3-debian
+ automake, autoconf, autotools-dev, dh-autoreconf,
+ libxml-parser-perl, liblqr-1-0-dev, automake (>= 1.6), autoconf (>= 2.54), liblcms2-dev, libtiff-dev, debhelper (>= 9), libglib2.0-dev,
+ python3, python3-debian, dh-python
 Standards-Version: 3.9.5
-Vcs-Git: https://github.com/bzed/gimp-plugin-registry.git
-Vcs-Browser: https://github.com/bzed/gimp-plugin-registry
+Vcs-Git: https://salsa.debian.org/debian/gimp-plugin-registry.git
+Vcs-Browser: https://salsa.debian.org/debian/gimp-plugin-registry
 
 Package: gimp-plugin-registry
 Architecture: any
 Depends: gimp (>= 2.6),
- ${shlibs:Depends}, ${misc:Depends},
- python, libtiff-tools, xdg-utils,
+ ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends},
+ python3, libtiff-tools, xdg-utils,
 Suggests: icc-profiles, 
 Breaks: gimp-refocus (<< 0.9.0-2), gimp-save-for-web, gimp-resynthesizer (<< 0.16-2~)
 Replaces: gimp-refocus (<< 0.9.0-2), gimp-save-for-web, gimp-resynthesizer
