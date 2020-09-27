@@ -1,3 +1,20 @@
+gimp-plugin-registry (9.20200927) unstable; urgency=low
+
+  [ Ying-Chun Liu (PaulLiu) ]
+  * Remove python 2 dependencies. (Closes: #936612)
+  * Fix FTBFS with gcc 10 (Closes: #957272)
+  * gimp-mask: add autopkgtest
+  * resynthesizer: ported to python3
+  * Temporary disable python plugins (Closes: #966744)
+  * lqr: fix parameter name (Closes: #962170)
+  * lqr: add autopkgtest (Closes: #959152)
+  * debian/control.in: Change myself as Maintainer (Closes: #967854)
+  * debian/control.in: fix debhelper version to 9.
+  * debian/control.in: Change VCS-* to salsa (Closes: #967852)
+  * Auto update of debian/control
+
+ -- Ying-Chun Liu (PaulLiu) <paulliu@debian.org>  Sun, 27 Sep 2020 21:50:34 +0800
+
 gimp-plugin-registry (9.20180625+nmu1) unstable; urgency=medium
 
   * Non-maintainer upload.
