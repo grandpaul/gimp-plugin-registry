@@ -8,8 +8,8 @@ Build-Depends: autotools-dev, quilt, libgimp2.0-dev, intltool,
  #AUTO_UPDATE_Build-Depends#, debhelper (>= 9), libglib2.0-dev,
  python3, python3-debian, dh-python
 Standards-Version: 3.9.5
-Vcs-Git: https://github.com/bzed/gimp-plugin-registry.git
-Vcs-Browser: https://github.com/bzed/gimp-plugin-registry
+Vcs-Git: https://salsa.debian.org/debian/gimp-plugin-registry.git
+Vcs-Browser: https://salsa.debian.org/debian/gimp-plugin-registry
 
 Package: gimp-plugin-registry
 Architecture: any
