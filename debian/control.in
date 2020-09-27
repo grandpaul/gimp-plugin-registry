@@ -5,7 +5,7 @@ Maintainer: Ying-Chun Liu (PaulLiu) <paulliu@debian.org>
 Uploaders: #AUTO_UPDATE_Uploaders#
 Build-Depends: autotools-dev, quilt, libgimp2.0-dev, intltool,
  automake, autoconf, autotools-dev, dh-autoreconf,
- #AUTO_UPDATE_Build-Depends#, debhelper (>= 8.0.0), libglib2.0-dev,
+ #AUTO_UPDATE_Build-Depends#, debhelper (>= 9), libglib2.0-dev,
  python3, python3-debian, dh-python
 Standards-Version: 3.9.5
 Vcs-Git: https://github.com/bzed/gimp-plugin-registry.git
